@@ -21,17 +21,41 @@ export const metadata: Metadata = {
 
 function IPhoneScreenshot() {
   return (
-    <div className="relative flex items-center justify-center">
-      <Image
-        src="/iphone_home.webp"
-        alt="Habbit app home screen"
-        width={300}
-        height={620}
-        className="animate-float drop-shadow-2xl"
-        style={{ maxWidth: "300px", width: "100%", height: "auto" }}
-        sizes="300px"
-        priority
-      />
+    <div className="relative flex items-center justify-center" style={{ minHeight: "560px" }}>
+      {/* Friends tab — behind and offset to the right */}
+      <div
+        className="absolute"
+        style={{
+          right: "-10px",
+          top: "40px",
+          zIndex: 1,
+          transform: "rotate(4deg)",
+        }}
+      >
+        <Image
+          src="/iphone_friends.webp"
+          alt="Habbit friends tab"
+          width={240}
+          height={496}
+          className="drop-shadow-xl"
+          style={{ width: "240px", height: "auto", opacity: 0.92 }}
+          sizes="240px"
+        />
+      </div>
+
+      {/* Home screen — front and center */}
+      <div className="relative" style={{ zIndex: 2 }}>
+        <Image
+          src="/iphone_home.webp"
+          alt="Habbit app home screen"
+          width={280}
+          height={578}
+          className="animate-float drop-shadow-2xl"
+          style={{ width: "280px", height: "auto" }}
+          sizes="280px"
+          priority
+        />
+      </div>
     </div>
   );
 }
