@@ -27,7 +27,7 @@ export default function Header() {
           >
             <div className="w-8 h-8 rounded-[10px] overflow-hidden shadow-sm group-hover:scale-105 transition-transform duration-200">
               <Image
-                src="/logo.webp"
+                src="/logo-transparent.webp"
                 alt="Habbit logo"
                 width={32}
                 height={32}
