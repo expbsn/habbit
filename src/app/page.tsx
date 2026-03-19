@@ -1,15 +1,6 @@
 import type { Metadata } from "next";
 import IPhoneScreenshot from "@/components/IPhoneScreenshot";
-import {
-  Calendar,
-  Timer,
-  TrendingUp,
-  BookOpen,
-  Users,
-  Heart,
-  Check,
-  Shield,
-} from "lucide-react";
+import { Check } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Habbit - Habit Tracker | Stick to Your Goals",
@@ -22,7 +13,7 @@ export const metadata: Metadata = {
 // ── Feature Card ─────────────────────────────────────────────────────────────
 
 interface FeatureCardProps {
-  icon: React.ReactNode;
+  icon: React.ReactNode | string;
   title: string;
   description: string;
 }
@@ -30,7 +21,7 @@ interface FeatureCardProps {
 function FeatureCard({ icon, title, description }: FeatureCardProps) {
   return (
     <div className="group relative p-6 rounded-2xl bg-white border border-[#E5E7EB] hover:border-[#374151]/40 hover:shadow-md transition-all duration-300 hover:-translate-y-1">
-      <div className="w-11 h-11 rounded-xl bg-[#374151]/10 border border-[#374151]/15 flex items-center justify-center mb-4 text-[#374151] group-hover:scale-110 transition-transform duration-200">
+      <div className="w-11 h-11 rounded-xl bg-gray-100 flex items-center justify-center mb-4 text-xl group-hover:scale-110 transition-transform duration-200">
         {icon}
       </div>
       <h3 className="text-base font-semibold text-gray-900 mb-1.5">{title}</h3>
@@ -82,37 +73,37 @@ function AppStoreButton({
 export default function HomePage() {
   const features = [
     {
-      icon: <Calendar size={22} />,
+      icon: "📅",
       title: "Smart Scheduling",
       description:
         "Set habits for daily, weekly, or fully custom schedules. Habbit adapts to your lifestyle, not the other way around.",
     },
     {
-      icon: <Timer size={22} />,
+      icon: "⏱️",
       title: "Timer Habits",
       description:
         "Built-in countdown timers with Live Activities on your Lock Screen — stay focused without unlocking your phone.",
     },
     {
-      icon: <TrendingUp size={22} />,
+      icon: "📈",
       title: "Streaks & Analytics",
       description:
         "Visualise your consistency with beautiful charts and streaks that reward every day you show up.",
     },
     {
-      icon: <BookOpen size={22} />,
+      icon: "🗓️",
       title: "Weekly Wraps",
       description:
         "Receive a personalised Sunday summary of your week — see what worked and where to improve.",
     },
     {
-      icon: <Users size={22} />,
+      icon: "🫂",
       title: "Friends",
       description:
         "Follow friends, see their progress, and send motivational nudges to keep each other on track.",
     },
     {
-      icon: <Heart size={22} />,
+      icon: "🏃",
       title: "HealthKit",
       description:
         "Automatically log steps, calories, and distance from Apple Health. Your data stays on your device.",
@@ -231,8 +222,8 @@ export default function HomePage() {
 
           {/* Extra callout */}
           <div className="mt-8 p-6 rounded-2xl bg-white border border-[#E5E7EB] flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
-            <div className="w-12 h-12 rounded-xl bg-[#374151]/10 flex items-center justify-center text-[#374151] shrink-0">
-              <Shield size={24} />
+            <div className="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center text-xl shrink-0">
+              ☁️
             </div>
             <div className="flex-1">
               <h3 className="font-semibold text-gray-900 mb-1">
