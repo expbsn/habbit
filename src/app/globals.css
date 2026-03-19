@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 254 252 250;
+    --foreground: 28 20 14;
+    --brand: 160 120 90;
+    --brand-foreground: 255 255 255;
+    --muted: 248 244 240;
+    --muted-foreground: 120 100 85;
+    --border: 232 220 210;
+    --card: 255 255 255;
+    --card-foreground: 28 20 14;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    border-color: rgb(var(--border));
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: rgb(var(--background));
+    color: rgb(var(--foreground));
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .gradient-brand {
+    background: linear-gradient(135deg, #374151 0%, #6B7280 100%);
+  }
+
+  .gradient-brand-subtle {
+    background: linear-gradient(135deg, rgba(55, 65, 81, 0.06) 0%, rgba(107, 114, 128, 0.06) 100%);
+  }
+
+  .glass {
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    background-color: rgba(254, 252, 250, 0.85);
+  }
+}
+
+/* iPhone mockup styles */
+.iphone-mockup {
+  position: relative;
+  width: 280px;
+  height: 580px;
+  background: #1a1a1a;
+  border-radius: 46px;
+  border: 3px solid #3a3a3a;
+  box-shadow:
+    0 0 0 1px #0a0a0a,
+    0 40px 80px rgba(0, 0, 0, 0.25),
+    0 20px 40px rgba(0, 0, 0, 0.15),
+    inset 0 0 0 2px #2a2a2a;
+  overflow: hidden;
+}
+
+/* Prose styles for legal pages */
+.prose-habbit h1 {
+  @apply text-3xl font-bold text-gray-900 mb-4;
+}
+
+.prose-habbit h2 {
+  @apply text-xl font-semibold text-gray-900 mt-10 mb-3;
+}
+
+.prose-habbit h3 {
+  @apply text-lg font-semibold text-gray-800 mt-6 mb-2;
+}
+
+.prose-habbit p {
+  @apply text-gray-600 leading-relaxed mb-4;
+}
+
+.prose-habbit ul {
+  @apply list-disc list-inside text-gray-600 mb-4 space-y-1;
+}
+
+.prose-habbit a {
+  @apply underline text-gray-700 hover:text-gray-900;
+  text-underline-offset: 3px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #d4c4b8;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #b8a498;
+}
