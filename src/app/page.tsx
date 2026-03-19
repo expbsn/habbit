@@ -26,7 +26,7 @@ function IPhoneScreenshot() {
       <div
         className="absolute animate-float-slow"
         style={{
-          right: "-15px",
+          right: "-5px",
           top: "100px",
           zIndex: 1,
           transform: "rotate(5deg)",
