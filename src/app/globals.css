@@ -60,6 +60,19 @@
   }
 }
 
+/* Phone stage — CSS zoom scales everything uniformly including JS transforms */
+.phone-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 380px;
+  min-height: 620px;
+}
+@media (max-width: 1023px) { .phone-stage { zoom: 0.82; } }
+@media (max-width: 767px)  { .phone-stage { zoom: 0.70; } }
+@media (max-width: 479px)  { .phone-stage { zoom: 0.58; } }
+
 /* iPhone mockup styles */
 .iphone-mockup {
   position: relative;

@@ -1,35 +1,28 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 
 export default function IPhoneScreenshot() {
   const friendsRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1);
+  const scrollRef  = useRef(0);
 
-  // Scale everything down on smaller screens
+  // Passive scroll listener → ref (no rAF involvement, no jank)
   useEffect(() => {
-    const update = () => {
-      const w = window.innerWidth;
-      if (w < 480) setScale(0.62);
-      else if (w < 768) setScale(0.72);
-      else if (w < 1024) setScale(0.85);
-      else setScale(1);
-    };
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
+    const onScroll = () => { scrollRef.current = window.scrollY; };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // rAF loop: float + scroll fold-in for friends tab
+  // rAF loop: float + scroll fold-in, reads from ref
   useEffect(() => {
     let rafId: number;
     const loop = (time: number) => {
-      const floatY = Math.sin((time / 8000) * Math.PI * 2) * -8;
-      const progress = Math.min(window.scrollY / 350, 1);
-      const slideX = progress * -150;
-      const rotate = 5 - progress * 5;
-      const opacity = 1 - progress * 0.45;
+      const floatY   = Math.sin((time / 8000) * Math.PI * 2) * -8;
+      const progress = Math.min(scrollRef.current / 350, 1);
+      const slideX   = progress * -150; // in element's own coord space — auto-scales with CSS zoom
+      const rotate   = 5 - progress * 5;
+      const opacity  = 1 - progress * 0.45;
 
       if (friendsRef.current) {
         friendsRef.current.style.transform =
@@ -42,23 +35,14 @@ export default function IPhoneScreenshot() {
     return () => cancelAnimationFrame(rafId);
   }, []);
 
-  const mainW  = Math.round(280 * scale);
-  const friendW = Math.round(220 * scale);
-  const containerW = Math.round(380 * scale);
-  const containerH = Math.round(620 * scale);
-  const friendRight = Math.round(-5 * scale);
-  const friendTop   = Math.round(100 * scale);
-
   return (
-    <div
-      className="relative flex items-center justify-center"
-      style={{ width: `${containerW}px`, minHeight: `${containerH}px` }}
-    >
+    // CSS zoom scales the whole stage + all children + all transforms uniformly
+    <div className="phone-stage">
       {/* Friends tab */}
       <div
         ref={friendsRef}
         className="absolute"
-        style={{ right: `${friendRight}px`, top: `${friendTop}px`, zIndex: 1 }}
+        style={{ right: "-5px", top: "100px", zIndex: 1 }}
       >
         <Image
           src="/iphone_friends.webp"
@@ -66,8 +50,8 @@ export default function IPhoneScreenshot() {
           width={220}
           height={454}
           className="drop-shadow-xl"
-          style={{ width: `${friendW}px`, height: "auto", opacity: 0.88 }}
-          sizes={`${friendW}px`}
+          style={{ width: "220px", height: "auto", opacity: 0.88 }}
+          sizes="220px"
         />
       </div>
 
@@ -82,8 +66,8 @@ export default function IPhoneScreenshot() {
           width={280}
           height={578}
           className="drop-shadow-2xl transition-transform duration-300 hover:scale-105"
-          style={{ width: `${mainW}px`, height: "auto" }}
-          sizes={`${mainW}px`}
+          style={{ width: "280px", height: "auto" }}
+          sizes="280px"
           priority
         />
       </div>
