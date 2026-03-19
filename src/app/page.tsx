@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import IPhoneScreenshot from "@/components/IPhoneScreenshot";
 import {
   Calendar,
   Timer,
@@ -18,47 +18,6 @@ export const metadata: Metadata = {
 };
 
 // ── iPhone Screenshot ─────────────────────────────────────────────────────────
-
-function IPhoneScreenshot() {
-  return (
-    <div className="relative flex items-center justify-center" style={{ minHeight: "620px", width: "380px" }}>
-      {/* Friends tab — behind, shifted right and down */}
-      <div
-        className="absolute animate-float-slow"
-        style={{
-          right: "-5px",
-          top: "100px",
-          zIndex: 1,
-          transform: "rotate(5deg)",
-        }}
-      >
-        <Image
-          src="/iphone_friends.webp"
-          alt="Habbit friends tab"
-          width={220}
-          height={454}
-          className="drop-shadow-xl"
-          style={{ width: "220px", height: "auto", opacity: 0.88 }}
-          sizes="220px"
-        />
-      </div>
-
-      {/* Home screen — front and centre */}
-      <div className="absolute animate-float" style={{ left: "0px", top: "0px", zIndex: 2 }}>
-        <Image
-          src="/iphone_home.webp"
-          alt="Habbit app home screen"
-          width={280}
-          height={578}
-          className="drop-shadow-2xl transition-transform duration-300 hover:scale-105"
-          style={{ width: "280px", height: "auto" }}
-          sizes="280px"
-          priority
-        />
-      </div>
-    </div>
-  );
-}
 
 // ── Feature Card ─────────────────────────────────────────────────────────────
 
@@ -227,7 +186,7 @@ export default function HomePage() {
 
               {/* Sub-note */}
               <p className="text-sm text-gray-400 pt-1">
-                Free to download &middot; No account required &middot; iOS 16+
+                Free to download &middot; No account required &middot; iOS 17+
               </p>
             </div>
 
@@ -424,7 +383,7 @@ export default function HomePage() {
             <AppStoreButton size="large" variant="primary" />
           </div>
           <p className="mt-5 text-sm text-gray-400">
-            Free to download &middot; No account required &middot; iOS 16+
+            Free to download &middot; No account required &middot; iOS 17+
           </p>
         </div>
       </section>

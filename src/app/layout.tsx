@@ -42,6 +42,10 @@ export const metadata: Metadata = {
     description:
       "Build lasting habits with smart scheduling, streaks, analytics, and friends.",
   },
+  icons: {
+    icon: "/logo.webp",
+    apple: "/logo.webp",
+  },
   robots: {
     index: true,
     follow: true,
