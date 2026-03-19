@@ -26,7 +26,7 @@ function IPhoneScreenshot() {
       <div
         className="absolute animate-float-slow"
         style={{
-          right: "-60px",
+          right: "-30px",
           top: "100px",
           zIndex: 1,
           transform: "rotate(5deg)",
@@ -50,7 +50,7 @@ function IPhoneScreenshot() {
           alt="Habbit app home screen"
           width={280}
           height={578}
-          className="animate-float drop-shadow-2xl"
+          className="animate-float drop-shadow-2xl transition-transform duration-300 hover:scale-105"
           style={{ width: "280px", height: "auto" }}
           sizes="280px"
           priority
