@@ -13,14 +13,15 @@ export default function IPhoneScreenshot() {
       // Gentle float — 8s period, ±8px
       const floatY = Math.sin((time / 8000) * Math.PI * 2) * -8;
 
-      // Scroll: slide behind the main phone as user scrolls down
+      // Scroll: slide + straighten + fade behind the main phone
       const progress = Math.min(window.scrollY / 350, 1);
       const slideX = progress * -150;
+      const rotate = 5 - progress * 5; // 5deg → 0deg
       const opacity = 1 - progress * 0.45;
 
       if (friendsRef.current) {
         friendsRef.current.style.transform =
-          `translateX(${slideX}px) rotate(5deg) translateY(${floatY}px)`;
+          `translateX(${slideX}px) rotate(${rotate}deg) translateY(${floatY}px)`;
         friendsRef.current.style.opacity = String(opacity);
       }
 
