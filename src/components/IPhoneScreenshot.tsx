@@ -4,61 +4,72 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 
 export default function IPhoneScreenshot() {
-  const friendsRef = useRef<HTMLDivElement>(null);
-  const scrollRef  = useRef(0);
+  // Outer wrapper handles scroll-driven translateX + rotate
+  const scrollDivRef = useRef<HTMLDivElement>(null);
 
-  // Passive scroll listener → ref (no rAF involvement, no jank)
   useEffect(() => {
-    const onScroll = () => { scrollRef.current = window.scrollY; };
+    let ticking = false;
+
+    const update = () => {
+      const progress = Math.min(window.scrollY / 350, 1);
+      const slideX  = progress * -150;
+      const rotate  = 5 - progress * 5;
+      const opacity = 1 - progress * 0.45;
+
+      if (scrollDivRef.current) {
+        scrollDivRef.current.style.transform =
+          `translateX(${slideX}px) rotate(${rotate}deg)`;
+        scrollDivRef.current.style.opacity = String(opacity);
+      }
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    };
+
+    // Set initial state
+    update();
+
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // rAF loop: float + scroll fold-in, reads from ref
-  useEffect(() => {
-    let rafId: number;
-    const loop = (time: number) => {
-      const floatY   = Math.sin((time / 8000) * Math.PI * 2) * -8;
-      const progress = Math.min(scrollRef.current / 350, 1);
-      const slideX   = progress * -150; // in element's own coord space — auto-scales with CSS zoom
-      const rotate   = 5 - progress * 5;
-      const opacity  = 1 - progress * 0.45;
-
-      if (friendsRef.current) {
-        friendsRef.current.style.transform =
-          `translateX(${slideX}px) rotate(${rotate}deg) translateY(${floatY}px)`;
-        friendsRef.current.style.opacity = String(opacity);
-      }
-      rafId = requestAnimationFrame(loop);
-    };
-    rafId = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(rafId);
-  }, []);
-
   return (
-    // CSS zoom scales the whole stage + all children + all transforms uniformly
     <div className="phone-stage">
-      {/* Friends tab */}
+
+      {/* Friends tab — scroll transform on outer, CSS float on inner */}
       <div
-        ref={friendsRef}
+        ref={scrollDivRef}
         className="absolute"
-        style={{ right: "-5px", top: "100px", zIndex: 1 }}
+        style={{
+          right: "-5px",
+          top: "100px",
+          zIndex: 1,
+          transform: "translateX(0px) rotate(5deg)",
+          willChange: "transform, opacity",
+        }}
       >
-        <Image
-          src="/iphone_friends.webp"
-          alt="Habbit friends tab"
-          width={220}
-          height={454}
-          className="drop-shadow-xl"
-          style={{ width: "220px", height: "auto", opacity: 0.88 }}
-          sizes="220px"
-        />
+        <div className="animate-float-slow-y">
+          <Image
+            src="/iphone_friends.webp"
+            alt="Habbit friends tab"
+            width={220}
+            height={454}
+            className="drop-shadow-xl"
+            style={{ width: "220px", height: "auto", opacity: 0.88 }}
+            sizes="220px"
+          />
+        </div>
       </div>
 
-      {/* Main phone */}
+      {/* Main phone — CSS float, hover scale */}
       <div
         className="absolute animate-float"
-        style={{ left: 0, top: 0, zIndex: 2 }}
+        style={{ left: 0, top: 0, zIndex: 2, willChange: "transform" }}
       >
         <Image
           src="/iphone_home.webp"
@@ -71,6 +82,7 @@ export default function IPhoneScreenshot() {
           priority
         />
       </div>
+
     </div>
   );
 }

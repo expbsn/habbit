@@ -120,7 +120,7 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="bg-[#FFFFFF] text-gray-900 overflow-x-hidden">
+    <div className="bg-[#FFFFFF] text-gray-900">
       {/* ── Hero ── */}
       <section
         className="relative min-h-screen flex items-center pt-16"
