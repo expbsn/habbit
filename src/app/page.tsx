@@ -153,7 +153,7 @@ export default function HomePage() {
 
               <h1
                 id="hero-heading"
-                className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-gray-900 leading-[1.08]"
+                className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight text-gray-900 leading-[1.08]"
               >
                 Build habits
                 <br />
