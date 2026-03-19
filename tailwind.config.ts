@@ -26,6 +26,7 @@ const config: Config = {
         "fade-in": "fadeIn 0.6s ease-out forwards",
         "slide-up": "slideUp 0.6s ease-out forwards",
         float: "float 6s ease-in-out infinite",
+        "float-slow": "floatSlow 8s ease-in-out infinite",
       },
       keyframes: {
         fadeIn: {
@@ -39,6 +40,10 @@ const config: Config = {
         float: {
           "0%, 100%": { transform: "translateY(0px)" },
           "50%": { transform: "translateY(-12px)" },
+        },
+        floatSlow: {
+          "0%, 100%": { transform: "rotate(5deg) translateY(0px)" },
+          "50%": { transform: "rotate(5deg) translateY(-8px)" },
         },
       },
     },
